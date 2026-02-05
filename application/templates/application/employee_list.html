@@ -1,0 +1,44 @@
+{% extends 'application/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Employee List</h2>
+<table class="table table-borderless">
+    <thead class=" border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>
+              <a href="{% url 'employee_insert' %}" class="btn btn-outline-success">
+              <i class="fas fa-user-plus"></i> Add New  
+            </a>  
+            </td>
+        </tr>
+    </thead>
+<tbody>
+    {% for emp in employee_list %}
+        <tr>
+            <td>{{ emp.fullname }}</td>
+            <td>{{ emp.mobile }}</td>
+            <td>{{ emp.position }}</td>
+            <td>
+                <a href="{% url 'employee_update' emp.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'employee_delete' emp.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn text-danger px-0" onclick="return confirm('Are you sure you want to delete this employee?');">
+                        <i class="fas fa-trash-alt fa-lg"></i>
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+</table>
+{% endblock %}
