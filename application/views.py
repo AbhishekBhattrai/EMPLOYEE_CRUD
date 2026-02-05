@@ -61,7 +61,7 @@ def register_view(request):
 
 
 
-@login_required(login_url='login/')
+
 def employee_list(request):
     context={'employee_list':Employee.objects.all()}
     return render(request, 'application/employee_list.html', context)
